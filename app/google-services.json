@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "792790017849",
+    "project_id": "careforyou-947b7",
+    "storage_bucket": "careforyou-947b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792790017849:android:5f7e9fba612a423bd42ae8",
+        "android_client_info": {
+          "package_name": "com.kunal.careforyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792790017849-8p11g246mu8ga2ngmieg9oab7fv91sbi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kunal.careforyou",
+            "certificate_hash": "2db8038d1eeecf4bc9fdff921c71daf53815406b"
+          }
+        },
+        {
+          "client_id": "792790017849-kb38p7p0ifksli0issbi9qol7538c2d1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSv7D7eM2Dfgvw0RouB1qoi9BrE7jHvgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792790017849-kb38p7p0ifksli0issbi9qol7538c2d1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
