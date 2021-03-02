@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.ImageView
+import com.facebook.drawee.view.SimpleDraweeView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -15,16 +17,18 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.kunal.careforyou.helper.EncryptionHelper
 import com.kunal.careforyou.helper.QRCodeHelper
 import com.kunal.careforyou.helper.UserObject
-import kotlinx.android.synthetic.main.activity_qrcode.*
 
 class QRCodeActivity : AppCompatActivity() {
     private lateinit var signout: Button
+    private lateinit var qrCodeImageView: ImageView
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode)
 
         signout = findViewById(R.id.btn_logout)
+        qrCodeImageView = findViewById(R.id.qrCodeImageView)
+
         auth = Firebase.auth
 
         hideKeyboard()

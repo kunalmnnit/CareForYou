@@ -29,18 +29,17 @@
             android:background="@drawable/et_bgpress"
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintBottom_toTopOf="parent"
-            android:id="@+id/Sign_up"/>
+            android:id="@+id/Sign_up" />
 
         <Button
             android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:text="Log in"
             android:onClick="gotologin"
             android:textColor="#f2b24c50"
             android:background="@drawable/et_bg"
-
             android:id="@+id/Sign_in"
             app:layout_constraintTop_toBottomOf="@+id/Sign_up"/>
 
