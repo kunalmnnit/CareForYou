@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -13,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         auth = Firebase.auth
         if(auth!!.currentUser!=null) {
             startActivity(Intent(this, QRCodeActivity::class.java))
@@ -30,6 +32,10 @@ class MainActivity : AppCompatActivity() {
     fun gotoregister(v: View?) {
         val i = Intent(this@MainActivity, RegisterActivity::class.java)
         startActivity(i)
+        finish()
+    }
+
+    override fun onBackPressed() {
         finish()
     }
 }

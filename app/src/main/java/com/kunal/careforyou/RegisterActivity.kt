@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
         et_email = findViewById(R.id.et_emailreg)
         et_pass = findViewById(R.id.et_passwdreg)
         et_confirm = findViewById(R.id.cnf_passwd)
@@ -62,5 +64,9 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(i)
             finish()
         })
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 }
