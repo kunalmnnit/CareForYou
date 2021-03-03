@@ -2,6 +2,7 @@ package com.kunal.careforyou
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -13,6 +14,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -34,7 +36,7 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
     val FB_STORAGE_PATH = "image/"
     val REQUEST_CODE = 1234
     private lateinit var auth: FirebaseAuth
-    private val db = Firebase.firestore;
+    private val db = Firebase.firestore
     private lateinit var user: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,13 +62,20 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
                 phone.setText(document["phone"].toString())
                 age.setText(document["age"].toString())
                 val lod = document["dementia_level"].toString()
-                if (lod != null)
+                if (lod != "")
                     level.setSelection(lod.toInt())
                 else
                     level.setSelection(0)
                 img.setImageURI(document["img_url"].toString())
             }
 
+        }
+
+        val intent = Intent(this, FallDetectionService::class.java)
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
         }
 
         img.setOnClickListener(this@MyProfile)
@@ -124,43 +133,15 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
                 profile_details["age"] = age.text.toString()
                 profile_details["phone"] = phone.text.toString()
                 profile_details["dementia_level"] = level_selected
-
-                if (imgUri != null) {
-                    try
-                    {
-                        val ref = mStorageRef!!.child(
-                            FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri)
-                        )
-                        ref.putFile(imgUri!!).addOnSuccessListener {
-                            Toast.makeText(applicationContext, "image uploaded", Toast.LENGTH_LONG).show()
-                            ref.downloadUrl.addOnCompleteListener { task ->
-                                val downloadurl = task.result.toString()
-                                profile_details["img_url"] = downloadurl
-                                db.collection("patients").document(user).set(profile_details).addOnSuccessListener {
-                                    Toast.makeText(
-                                        this@MyProfile,
-                                        "Profile Details Updated Succesfully!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }.addOnFailureListener {
-                                    Toast.makeText(
-                                        this@MyProfile,
-                                        "Profile Details Updation Failed!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
-                        }.addOnFailureListener { e ->
-                                Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG)
-                                    .show()
-                        }.addOnProgressListener { taskSnapshot ->
-                            val progress = (100 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toDouble()
-                        }
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
+                db.collection("patients").document(user).set(profile_details, SetOptions.merge())
+                    .addOnSuccessListener {
+                    Toast.makeText(
+                        this@MyProfile, "Profile Details Updated Succesfully!",
+                        Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        this@MyProfile, "Profile Details Updation Failed!",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -174,6 +155,20 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
             try {
                 val bm = MediaStore.Images.Media.getBitmap(contentResolver, imgUri)
                 img.setImageBitmap(bm)
+                val ref = mStorageRef!!.child(
+                    FB_STORAGE_PATH + System.currentTimeMillis() + "." + getImageExt(imgUri)
+                )
+                ref.putFile(imgUri!!).addOnSuccessListener {
+                    Toast.makeText(applicationContext, "image uploaded", Toast.LENGTH_LONG).show()
+                    ref.downloadUrl.addOnCompleteListener { task ->
+                        val downloadurl = task.result.toString()
+                        db.collection("patients").document(user).update("img_url",downloadurl)
+                    }
+                }.addOnFailureListener { e ->
+                    Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
+                }.addOnProgressListener { taskSnapshot ->
+                    val progress = (100 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toDouble()
+                }
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
             } catch (e: IOException) {
