@@ -12,7 +12,7 @@
         android:background="@drawable/mountains1"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E6FF6347"
@@ -23,27 +23,26 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:text="Sign Up"
+            android:background="@drawable/et_bgpress"
+            android:layout_centerInParent="true"
             android:textColor="#ffffff"
             android:textSize="15dp"
             android:onClick="gotoregister"
-            android:background="@drawable/et_bgpress"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="parent"
             android:id="@+id/Sign_up" />
 
         <Button
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:textSize="15sp"
             android:text="Log in"
+            android:background="@drawable/et_bgpress"
             android:onClick="gotologin"
             android:textColor="#f2b24c50"
-            android:background="@drawable/et_bg"
             android:id="@+id/Sign_in"
-            app:layout_constraintTop_toBottomOf="@+id/Sign_up"/>
+            android:layout_below="@+id/Sign_up"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>
