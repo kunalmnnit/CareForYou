@@ -55,13 +55,18 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
         auth = Firebase.auth
         user = auth.currentUser!!.uid
         db.collection("patients").document(user).get().addOnSuccessListener { document ->
-            if (document != null) {
+            if(document.exists()) {
                 name.setText(document["name"].toString())
                 phone.setText(document["phone"].toString())
                 age.setText(document["age"].toString())
-                level.setSelection(document["dementia_level"].toString().toInt())
+                val lod = document["dementia_level"].toString()
+                if (lod != null)
+                    level.setSelection(lod.toInt())
+                else
+                    level.setSelection(0)
                 img.setImageURI(document["img_url"].toString())
             }
+
         }
 
         img.setOnClickListener(this@MyProfile)
