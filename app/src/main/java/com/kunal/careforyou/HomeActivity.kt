@@ -43,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
         {
             val auth = FirebaseAuth.getInstance()
             auth.signOut()
-            applicationContext.stopService(Intent(this, FallDetectionService::class.java))
+            this.stopService(Intent(this, FallDetectionService::class.java))
             startActivity(Intent(this@HomeActivity, MainActivity::class.java))
             finish()
         }
