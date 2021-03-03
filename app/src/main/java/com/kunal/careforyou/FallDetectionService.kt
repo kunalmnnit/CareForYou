@@ -51,7 +51,7 @@ class FallDetectionService : SensorEventListener,Service() {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST)
-        val notificationIntent = Intent(this, MyProfile::class.java)
+        val notificationIntent = Intent(this, HomeActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this,0,notificationIntent,0)
         val notification = NotificationCompat.Builder(this,"FallDetection")
             .setContentTitle("Test")

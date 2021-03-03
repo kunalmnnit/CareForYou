@@ -20,14 +20,11 @@ import com.kunal.careforyou.helper.QRCodeHelper
 import com.kunal.careforyou.helper.UserObject
 
 class QRCodeActivity : AppCompatActivity() {
-    private lateinit var signout: Button
     private lateinit var qrCodeImageView: ImageView
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode)
-
-        signout = findViewById(R.id.btn_logout)
         qrCodeImageView = findViewById(R.id.qrCodeImageView)
 
         auth = Firebase.auth
@@ -47,12 +44,6 @@ class QRCodeActivity : AppCompatActivity() {
                 }
             }
         }
-
-        signout.setOnClickListener(View.OnClickListener {
-            auth.signOut()
-            startActivity(Intent( this@QRCodeActivity, MainActivity::class.java))
-            finish()
-        })
     }
 
     private fun setImageBitmap(encryptedString: String?) {

@@ -71,13 +71,6 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
 
         }
 
-        val intent = Intent(this, FallDetectionService::class.java)
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
-            startForegroundService(intent)
-        } else {
-            startService(intent)
-        }
-
         img.setOnClickListener(this@MyProfile)
         save_profile.setOnClickListener(this@MyProfile)
 
