@@ -1,23 +1,20 @@
 package com.kunal.careforyou
 
 import android.content.Context
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatDelegate
-import com.facebook.drawee.view.SimpleDraweeView
+import androidmads.library.qrgenearator.QRGContents
+import androidmads.library.qrgenearator.QRGEncoder
+import androidmads.library.qrgenearator.QRGSaver
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
-import com.kunal.careforyou.helper.EncryptionHelper
-import com.kunal.careforyou.helper.QRCodeHelper
-import com.kunal.careforyou.helper.UserObject
+import com.google.zxing.WriterException
 
 class QRCodeActivity : AppCompatActivity() {
     private lateinit var qrCodeImageView: ImageView
@@ -32,27 +29,30 @@ class QRCodeActivity : AppCompatActivity() {
         hideKeyboard()
 
         val user = auth.currentUser;
-        if(user!=null) {
-            val user = UserObject(user.uid)
-            val serializeString = Gson().toJson(user)
-            val instance = EncryptionHelper.instance;
-            if(instance != null) {
-                val str = instance.encryptionString(serializeString)
-                if(str != null) {
-                    val encryptedString = str.encryptMsg()
-                    setImageBitmap(encryptedString)
-                }
-            }
+        val id = user?.uid
+
+        val qrgEncoder = QRGEncoder(id, null, QRGContents.Type.TEXT, 500)
+        qrgEncoder.colorBlack = Color.BLACK
+        qrgEncoder.colorWhite = Color.WHITE
+        var bitmap: Bitmap? = null
+        try {
+            // Getting QR-Code as Bitmap
+            bitmap = qrgEncoder.bitmap
+            // Setting Bitmap to ImageView
+            qrCodeImageView.setImageBitmap(bitmap)
+        } catch (e: WriterException) {
+            Log.v("QR", e.toString())
         }
+        val qrgSaver = QRGSaver()
+        qrgSaver.save(
+            ".",
+            id,
+            bitmap,
+            QRGContents.ImageType.IMAGE_JPEG
+        )
     }
 
-    private fun setImageBitmap(encryptedString: String?) {
-        val instance = QRCodeHelper.newInstance(this)
-        if(instance != null) {
-            val bitmap = instance.setContent(encryptedString).setErrorCorrectionLevel(ErrorCorrectionLevel.Q).setMargin(2).getQRCOde()
-            qrCodeImageView.setImageBitmap(bitmap)
-        }
-    }
+
 
     private fun hideKeyboard() {
         val view = this.currentFocus

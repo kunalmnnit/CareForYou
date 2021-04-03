@@ -23,8 +23,10 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.ktx.Firebase
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -98,7 +100,8 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         enableUserLocation()
         mMap!!.clear()
-        FirebaseFirestore.getInstance().collection("test").document("first").get()
+        val id = Firebase.auth.currentUser!!.uid
+        FirebaseFirestore.getInstance().collection("patients").document(id).get()
             .addOnSuccessListener { documentSnapshot ->
                 latLng = documentSnapshot["centre"] as GeoPoint?
                 addMarker(

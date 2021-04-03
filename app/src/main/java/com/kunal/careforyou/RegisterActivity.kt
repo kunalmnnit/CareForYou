@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         tv_hvac = findViewById(R.id.hv_ac)
         Signup = findViewById(R.id.btn_signupreg)
         auth = FirebaseAuth.getInstance()
-        Signup.setOnClickListener(View.OnClickListener {
+        Signup.setOnClickListener {
 
             if(et_email.getText().toString().length <10 || et_pass.getText().toString().length < 6 || et_confirm.getText().toString().length < 6) {
                 Toast.makeText(this@RegisterActivity, "Fields should be of greater length!!", Toast.LENGTH_SHORT).show()
@@ -42,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
                     auth.createUserWithEmailAndPassword(email, et_pass.getText().toString())
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                                val intent = Intent(this@RegisterActivity, MyProfile::class.java)
                                 startActivity(intent)
                                 finish()
                             }
@@ -53,11 +53,11 @@ class RegisterActivity : AppCompatActivity() {
                             }
                         }
                 } else {
-                    Toast.makeText(this@RegisterActivity, "Password dint match", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@RegisterActivity, "Password didn't match", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
-        })
+        }
 
         tv_hvac.setOnClickListener(View.OnClickListener {
             val i = Intent(this@RegisterActivity, LoginActivity::class.java)
