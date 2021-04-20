@@ -33,7 +33,7 @@ class FallDetectionService : SensorEventListener,Service() {
             val currentZ: Double = event.values[2].toDouble()
 
             val acceleration: Double = sqrt(currentX.times(currentX).plus(currentY.times(currentY)).plus(currentZ.times(currentZ)))
-            Log.d("Fall","X: $currentX, Y: $currentY, Z: $currentZ, acceleration: $acceleration")
+           // Log.d("Fall","X: $currentX, Y: $currentY, Z: $currentZ, acceleration: $acceleration")
             if (acceleration < 1) {
                 auth = Firebase.auth
                 user = auth.currentUser!!.uid

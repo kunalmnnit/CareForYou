@@ -1,6 +1,9 @@
 package com.kunal.careforyou
 
 import android.Manifest
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -56,6 +59,14 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             startService(intent)
         }
+        val componentName = ComponentName(this,WanderJobScheduler::class.java)
+        val info = JobInfo.Builder(123,componentName)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPersisted(true)
+                .setPeriodic(1*60*1000)
+                .build()
+        val scheduler =getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
+        scheduler.schedule(info)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment?
