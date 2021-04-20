@@ -18,6 +18,7 @@ import retrofit2.Response
 class WanderJobScheduler:JobService() {
     override fun onStartJob(params: JobParameters?): Boolean {
         Thread{
+            Log.d("wanderjob","hello")
             val array = JSONArray()
             val json = JSONObject()
             json.put("age","<=30")
@@ -31,7 +32,7 @@ class WanderJobScheduler:JobService() {
                 override fun onResponse(call: Call<PredictionModel>, response: Response<PredictionModel>) {
                     val list = response.body()?.result
 
-                    Log.d("wanderjob","hello")
+                    
                     val x = list!![0]
                     val y = list[1]
                     if (x < y && y >= 0.8) {

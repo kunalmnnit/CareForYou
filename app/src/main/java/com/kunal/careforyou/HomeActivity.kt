@@ -60,11 +60,19 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
             startService(intent)
         }
         val componentName = ComponentName(this,WanderJobScheduler::class.java)
-        val info = JobInfo.Builder(123,componentName)
+        val info = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            JobInfo.Builder(123,componentName)
+                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                    .setPersisted(true)
+                    .setPeriodic(15*60*1000,5*60*1000)
+                    .build()
+        } else {
+            JobInfo.Builder(123,componentName)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPersisted(true)
-                .setPeriodic(1*60*1000)
+                .setPeriodic(15*60*1000)
                 .build()
+        }
         val scheduler =getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
         scheduler.schedule(info)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
