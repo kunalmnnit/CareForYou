@@ -20,19 +20,14 @@ def predict():
         try:
             json_ = request.json
             print(json_,file=sys.stderr)
-            query = pd.get_dummies(pd.DataFrame(json_))
+            query = pd.DataFrame(json_)
             query = query.reindex(columns=model_columns, fill_value=0)
-            from sklearn.compose import ColumnTransformer
-            from sklearn.preprocessing import OneHotEncoder
-            ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [0,2])], remainder='passthrough')
+            query = query.iloc[:,:].values
+            query = np.array(ct.transform(query))
             print(query,file=sys.stdout)
-            query = np.array(ct.fit_transform(query))
-            prediction = list(lr.predict(query))
-                
+            prediction = list(lr.predict_proba(query))
             return jsonify({'prediction': str(prediction)})
-
         except:
-
             return jsonify({'trace': traceback.format_exc()})
     else:
         print ('Train the model first')
@@ -48,5 +43,6 @@ if __name__ == '__main__':
     print ('Model loaded')
     model_columns = joblib.load("model_columns.pkl") # Load "model_columns.pkl"
     print ('Model columns loaded')
-
+    ct = joblib.load("transformer.pkl")
+    print ('Column Transformer loaded')
     app.run(port=port, debug=True)
