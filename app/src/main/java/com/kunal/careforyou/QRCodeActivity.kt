@@ -1,12 +1,15 @@
 package com.kunal.careforyou
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.Toolbar
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
 import androidmads.library.qrgenearator.QRGSaver
@@ -17,11 +20,16 @@ import com.google.firebase.ktx.Firebase
 import com.google.zxing.WriterException
 
 class QRCodeActivity : AppCompatActivity() {
+    private lateinit var toolbar: Toolbar
     private lateinit var qrCodeImageView: ImageView
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode)
+        getSupportActionBar()!!.hide()
+        toolbar = findViewById(R.id.toolbar)
+        setActionBar(toolbar)
+        toolbar.inflateMenu(R.menu.three_dot_menu)
         qrCodeImageView = findViewById(R.id.qrCodeImageView)
 
         auth = Firebase.auth
@@ -52,6 +60,35 @@ class QRCodeActivity : AppCompatActivity() {
         )
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+        if(id == R.id.action_logout)
+        {
+            val auth = FirebaseAuth.getInstance()
+            auth.signOut()
+            this.stopService(Intent(this, FallDetectionService::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
+        if(id == R.id.action_map)
+        {
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+
+        if(id == R.id.action_profile)
+        {
+            startActivity(Intent(this, MyProfile::class.java))
+        }
+
+        return true
+    }
 
 
     private fun hideKeyboard() {

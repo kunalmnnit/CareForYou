@@ -10,10 +10,10 @@
         android:title="Share" />
 
     <item
-        android:id="@+id/action_qr"
+        android:id="@+id/action_map"
         android:icon="@drawable/ic_qr_code_foreground"
         app:showAsAction="always"
-        android:title="Your ID" />
+        android:title="Locate" />
 
     <item android:id="@+id/action_profile"
         android:icon="@drawable/ic_person_black_24dp"

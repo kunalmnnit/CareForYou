@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
                 val user = auth!!.currentUser!!.uid
                 val db = Firebase.firestore
                 db.collection("patients").document(user).update("flag",false)
-                val i = Intent(this@LoginActivity, HomeActivity::class.java)
+                val i = Intent(this@LoginActivity, QRCodeActivity::class.java)
                 startActivity(i)
                 finish()
             } else {

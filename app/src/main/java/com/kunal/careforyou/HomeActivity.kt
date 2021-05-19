@@ -33,7 +33,6 @@ import com.google.firebase.ktx.Firebase
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var toolbar: Toolbar
     private val TAG = "MapsActivity"
 
     private var mMap: GoogleMap? = null
@@ -48,10 +47,6 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        getSupportActionBar()!!.hide()
-        toolbar = findViewById(R.id.toolbar)
-        setActionBar(toolbar)
-        toolbar.inflateMenu(R.menu.three_dot_menu)
 
         val intent = Intent(this, FallDetectionService::class.java)
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
@@ -85,35 +80,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
-
-        if(id == R.id.action_logout)
-        {
-            val auth = FirebaseAuth.getInstance()
-            auth.signOut()
-            this.stopService(Intent(this, FallDetectionService::class.java))
-            startActivity(Intent(this@HomeActivity, MainActivity::class.java))
-            finish()
-        }
-
-        if(id == R.id.action_qr)
-        {
-            startActivity(Intent(this@HomeActivity, QRCodeActivity::class.java))
-        }
-
-        if(id == R.id.action_profile)
-        {
-            startActivity(Intent(this@HomeActivity, MyProfile::class.java))
-        }
-
-        return true
-    }
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
@@ -267,6 +234,10 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         circleOptions.fillColor(Color.argb(64, 255, 0, 0))
         circleOptions.strokeWidth(4f)
         mMap!!.addCircle(circleOptions)
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 
 }
