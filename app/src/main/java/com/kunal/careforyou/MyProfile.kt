@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.*
@@ -23,6 +24,7 @@ import java.io.FileNotFoundException
 import java.io.IOException
 
 class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.OnClickListener {
+    private lateinit var toolbar: Toolbar
     private lateinit var name: EditText
     private lateinit var age: EditText
     private lateinit var phone: EditText
@@ -44,6 +46,10 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
             ImagePipelineConfigFactory.getImagePipelineConfig(this@MyProfile)
         )
         setContentView(R.layout.activity_my_profile)
+        getSupportActionBar()!!.hide()
+        toolbar = findViewById(R.id.toolbar)
+        setActionBar(toolbar)
+        toolbar.inflateMenu(R.menu.three_dot_menu)
 
         mStorageRef = FirebaseStorage.getInstance().reference
         name = findViewById(R.id.patient_name)
@@ -167,6 +173,36 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
                 e.printStackTrace()
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        val id = item.itemId
+
+        if(id == R.id.action_logout)
+        {
+            val auth = FirebaseAuth.getInstance()
+            auth.signOut()
+            this.stopService(Intent(this, FallDetectionService::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
+        if(id == R.id.action_map)
+        {
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+
+        if(id == R.id.action_qr)
+        {
+            startActivity(Intent(this, QRCodeActivity::class.java))
+        }
+
+        return true
     }
 
 }

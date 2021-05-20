@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id ="@+id/menu_toolbar">
+
+    <item android:id="@+id/menu_item_share"
+        android:icon="@android:drawable/ic_menu_share"
+        app:showAsAction="always"
+        app:actionProviderClass="android.widget.ShareActionProvider"
+        android:title="Share" />
+
+    <item
+        android:id="@+id/action_map"
+        android:icon="@drawable/ic_qr_code_foreground"
+        app:showAsAction="always"
+        android:title="Locate" />
+
+    <item android:id="@+id/action_qr"
+        android:icon="@drawable/ic_person_black_24dp"
+        app:showAsAction="ifRoom"
+        android:title="Your ID" />
+
+    <item android:id="@+id/action_logout"
+        android:icon="@drawable/ic_logout_foreground"
+        app:showAsAction="ifRoom"
+        android:title="Log Out" />
+
+
+</menu>

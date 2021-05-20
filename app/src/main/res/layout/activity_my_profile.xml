@@ -9,6 +9,15 @@
     android:orientation="vertical"
     tools:context=".MyProfile">
 
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:menu="@menu/three_dot_menu_2"
+        android:title="@string/app_name"
+        android:id="@+id/toolbar"
+        android:background="@color/startblue"
+        tools:ignore="MissingConstraints" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp">

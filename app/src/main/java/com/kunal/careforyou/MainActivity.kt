@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         if(auth!!.currentUser!=null) {
-            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+            startActivity(Intent(this@MainActivity, QRCodeActivity::class.java))
         }
         else
             setContentView(R.layout.activity_main)
