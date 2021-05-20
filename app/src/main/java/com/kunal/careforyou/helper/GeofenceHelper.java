@@ -1,4 +1,4 @@
-package com.kunal.careforyou;
+package com.kunal.careforyou.helper;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,6 +10,7 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.maps.model.LatLng;
+import com.kunal.careforyou.helper.GeofenceBroadcastReceiver;
 
 public class GeofenceHelper extends ContextWrapper {
 

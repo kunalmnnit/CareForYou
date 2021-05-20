@@ -1,6 +1,7 @@
 package com.kunal.careforyou
 
 
+import com.kunal.careforyou.Utility.PredictionModel
 import com.squareup.okhttp.RequestBody
 import retrofit2.Call
 import retrofit2.Retrofit

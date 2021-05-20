@@ -1,4 +1,4 @@
-package com.kunal.careforyou
+package com.kunal.careforyou.LoginRegister
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.auth.FirebaseAuth
+import com.kunal.careforyou.Profile.MyProfile
+import com.kunal.careforyou.R
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var et_email: EditText

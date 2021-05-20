@@ -1,4 +1,4 @@
-package com.kunal.careforyou
+package com.kunal.careforyou.Profile
 
 import android.content.Context
 import android.content.Intent
@@ -18,6 +18,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.zxing.WriterException
+import com.kunal.careforyou.HomeActivity
+import com.kunal.careforyou.LoginRegister.MainActivity
+import com.kunal.careforyou.R
+import com.kunal.careforyou.Utility.FallDetectionService
 
 class QRCodeActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar

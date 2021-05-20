@@ -10,9 +10,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -25,11 +23,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.ktx.Firebase
+import com.kunal.careforyou.Utility.FallDetectionService
+import com.kunal.careforyou.Utility.WanderJobScheduler
+import com.kunal.careforyou.helper.GeofenceHelper
 
 
 class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -54,7 +54,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             startService(intent)
         }
-        val componentName = ComponentName(this,WanderJobScheduler::class.java)
+        val componentName = ComponentName(this, WanderJobScheduler::class.java)
         val info = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             JobInfo.Builder(123,componentName)
                     .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)

@@ -1,4 +1,4 @@
-package com.kunal.careforyou
+package com.kunal.careforyou.Utility
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kunal.careforyou.HomeActivity
 import kotlin.math.sqrt
 
 class FallDetectionService : SensorEventListener,Service() {

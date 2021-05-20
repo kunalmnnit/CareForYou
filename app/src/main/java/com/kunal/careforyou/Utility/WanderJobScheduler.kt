@@ -1,4 +1,4 @@
-package com.kunal.careforyou
+package com.kunal.careforyou.Utility
 
 import android.app.job.JobParameters
 import android.app.job.JobService
@@ -6,6 +6,7 @@ import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.kunal.careforyou.PredictionService
 import com.squareup.okhttp.MediaType
 import com.squareup.okhttp.RequestBody
 import org.json.JSONArray

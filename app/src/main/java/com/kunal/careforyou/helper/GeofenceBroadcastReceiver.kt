@@ -1,4 +1,4 @@
-package com.kunal.careforyou;
+package com.kunal.careforyou.helper;
 
 import android.content.BroadcastReceiver
 import android.content.Context

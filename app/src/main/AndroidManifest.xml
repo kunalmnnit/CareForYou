@@ -22,26 +22,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CareForYou">
         <receiver
-            android:name=".GeofenceBroadcastReceiver"
+            android:name=".helper.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedReceiver">
 
         </receiver>
         <activity android:name=".HomeActivity"/>
-        <activity android:name=".MyProfile" />
-        <activity android:name=".QRCodeActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Profile.MyProfile" />
+        <activity android:name=".Profile.QRCodeActivity" />
+        <activity android:name=".LoginRegister.RegisterActivity" />
+        <activity android:name=".LoginRegister.LoginActivity" />
+        <activity android:name=".LoginRegister.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".FallDetectionService" />
+        <service android:name=".Utility.FallDetectionService" />
         <service
-            android:name=".WanderJobScheduler"
+            android:name=".Utility.WanderJobScheduler"
             android:label="Wander service"
             android:permission="android.permission.BIND_JOB_SERVICE" >
         </service>

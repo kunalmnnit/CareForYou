@@ -1,4 +1,4 @@
-package com.kunal.careforyou
+package com.kunal.careforyou.Profile
 
 import android.content.Intent
 import android.net.Uri
@@ -19,6 +19,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.kunal.careforyou.HomeActivity
+import com.kunal.careforyou.LoginRegister.MainActivity
+import com.kunal.careforyou.R
+import com.kunal.careforyou.Utility.FallDetectionService
 import com.kunal.careforyou.cache.ImagePipelineConfigFactory
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -81,7 +85,7 @@ class MyProfile : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.
 
         val adapter = ArrayAdapter.createFromResource(
             this@MyProfile,
-            R.array.status,
+                R.array.status,
             android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
